@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570653558256",
+    "firebase_url": "https://etiquette-c4da6-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "etiquette-c4da6",
+    "storage_bucket": "etiquette-c4da6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570653558256:android:2d93136898c8a78c484935",
+        "android_client_info": {
+          "package_name": "com.mking11.etiquette"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570653558256-f2ia68758a9j9fuvmo4hfuv9pt99808h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mking11.etiquette",
+            "certificate_hash": "6468310d38e1ac04256c96f1a0e9a9838e503d68"
+          }
+        },
+        {
+          "client_id": "570653558256-gmm2ltal1blvt2c45e9oqj4vp2ldgbof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAvGLjN-VdbWqAqoOMIBf7ryZqCfWWgsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570653558256-gmm2ltal1blvt2c45e9oqj4vp2ldgbof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

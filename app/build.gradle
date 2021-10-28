@@ -1,5 +1,11 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
     id 'kotlin-android'
 }
 
@@ -7,12 +13,11 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.mking11.myapplication"
+        applicationId "com.mking11.etiquette"
         minSdk 22
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -49,19 +54,43 @@ android {
 
 dependencies {
 
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    //lifecycle extensions asflow for live data
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+
+    // coroutines.
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1-native-mt'
+
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
+
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
+    implementation 'androidx.activity:activity-compose:1.3.1'
+
+
+    // compose material
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation("androidx.compose.material:material-icons-core:${compose_version}")
+    implementation("androidx.compose.material:material-icons-extended:${compose_version}")
+
+    // Integration with observables
+    implementation "androidx.compose.runtime:runtime-livedata:${compose_version}"
+    // constraint layout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01'
+    //run time with
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-rc01'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
 
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
@@ -76,4 +105,41 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil-compose:1.3.2")
+
+    //firebase
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    //for data bases
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //hilt
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
+
+    //testing
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+
 }
