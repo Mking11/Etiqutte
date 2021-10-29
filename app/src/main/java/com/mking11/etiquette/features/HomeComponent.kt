@@ -12,11 +12,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.mking11.etiquette.R
-import com.mking11.etiquette.ui.theme.MyApplicationTheme
+import com.mking11.etiquette.features.navigation.Screens
+import com.mking11.etiquette.ui.theme.EtiquetteTheme
 
 @Composable
-fun HomeComponent() {
+fun HomeComponent(navController:NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -39,7 +41,7 @@ fun HomeComponent() {
 
 
         Button(onClick = {
-//            navController.navigate(Screens.COUNTRIES)
+            navController.navigate(Screens.COUNTRIES)
         }, modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 20.dp).width(150.dp).height(60.dp)) {
             Text("Go!", fontSize = 20.sp)
 
@@ -47,13 +49,4 @@ fun HomeComponent() {
 
 
     }
-}
-
-@Preview
-@Composable
-fun previewHome() {
-    MyApplicationTheme {
-        HomeComponent()
-    }
-
 }
