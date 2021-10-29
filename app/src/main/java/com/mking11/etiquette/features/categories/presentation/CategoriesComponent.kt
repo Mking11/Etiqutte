@@ -1,4 +1,4 @@
-package com.mking11.etiquette.features.countries.presentation
+package com.mking11.etiquette.features.categories.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -16,15 +16,15 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 
 @Composable
-fun CountriesComponent(
-    countryPhoto: String,
-    countryName: String,
-    countryId:String,
-    onCountryClick: (String) -> Unit
+fun CategoriesComponent(
+    categoryPhoto: String,
+    categoryName: String,
+    categoryId: String,
+    categoryClick: (String) -> Unit
 ) {
 
     Card(modifier = Modifier.fillMaxWidth().padding(top = 10.dp).clickable {
-        onCountryClick(countryId)
+        categoryClick(categoryId)
     }, elevation = 4.dp) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -34,7 +34,7 @@ fun CountriesComponent(
 
             Card {
                 Image(
-                    painter = rememberImagePainter(countryPhoto),
+                    painter = rememberImagePainter(categoryPhoto),
                     contentDescription = "flag ",
                     modifier = Modifier
                         .fillMaxWidth(0.3f)
@@ -47,7 +47,7 @@ fun CountriesComponent(
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = countryName,
+                text = categoryName,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
                 overflow = TextOverflow.Ellipsis

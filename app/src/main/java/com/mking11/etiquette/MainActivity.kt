@@ -1,17 +1,24 @@
 package com.mking11.etiquette
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mking11.etiquette.ui.theme.MyApplicationTheme
+import androidx.navigation.navArgument
+import com.mking11.etiquette.features.HomeComponent
+import com.mking11.etiquette.features.categories.presentation.SelectCategoryComponent
+import com.mking11.etiquette.features.countries.presentation.SelectCountriesComponent
+import com.mking11.etiquette.features.navigation.Arguments
+import com.mking11.etiquette.features.navigation.Screens
+import com.mking11.etiquette.ui.theme.EtiquetteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -33,15 +40,36 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkPermissions(permissions)
         setContent {
-//            checkPermissions(permissions)
-            MyApplicationTheme {
+
+            EtiquetteTheme {
 
                 val navController = rememberNavController()
 
 
-                Nav
+                NavHost(navController = navController, startDestination = Screens.HOME) {
+                    composable(Screens.HOME) {
+                        HomeComponent(navController)
+                    }
 
+                    composable(Screens.COUNTRIES) {
+                        SelectCountriesComponent(navController)
+                    }
+
+                    composable(Screens.CATEGORY + "/{${Arguments.COUNTRY_ID}}", arguments = listOf(
+                        navArgument(Arguments.COUNTRY_ID) {
+                            type = NavType.StringType
+                        }
+                    )){
+                        val countryId = it.arguments?.getString(Arguments.COUNTRY_ID)
+                        if (countryId !=null) {
+                            SelectCategoryComponent(navController, countryId) {
+
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -64,7 +92,7 @@ class MainActivity : ComponentActivity() {
 
             println(unconfirmed)
             if (unconfirmed.isNotEmpty()) {
-                this@MainActivity.hasPermissions (this@MainActivity,*permissions)
+                this@MainActivity.hasPermissions(this@MainActivity, *permissions)
             }
 
 
@@ -84,8 +112,6 @@ class MainActivity : ComponentActivity() {
         permissions.all {
             ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
         }
-
-
 
 
 }
