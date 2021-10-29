@@ -1,7 +1,7 @@
 package com.mking11.etiquette.common.firebaseutils
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.mking11.etiquette.common.auth_session.data.repository.FirebaseAuthRepository
+import com.mking11.etiquette.common.user_session.data.repository.FirebaseAuthRepository
 import javax.inject.Inject
 
 class FirebaseCrash @Inject constructor(private val firebaseAuthRepository: FirebaseAuthRepository) {

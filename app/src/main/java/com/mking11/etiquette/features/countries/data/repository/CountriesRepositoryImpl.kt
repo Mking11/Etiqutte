@@ -20,6 +20,7 @@ class CountriesRepositoryImpl(
     firebaseCrash
 ) {
     override fun getCountriesRemote(): LiveData<HashMap<String, CountriesDto>> {
+        countriesRemote.observeValue()
         return countriesRemote.repoHashedLive
     }
 

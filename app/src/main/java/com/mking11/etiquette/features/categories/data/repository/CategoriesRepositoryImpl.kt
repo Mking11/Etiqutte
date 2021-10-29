@@ -20,6 +20,7 @@ class CategoriesRepositoryImpl(
     firebaseCrash
 ) {
     override fun getCategoriesRemote(): LiveData<HashMap<String, CategoryDto>> {
+        categoriesRemoteSource.observeValue()
         return categoriesRemoteSource.repoHashedLive
     }
 

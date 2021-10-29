@@ -18,5 +18,10 @@ abstract class CategoriesDao : DaoCommon<CategoryDbo, String> {
     @Query("Delete from Categories ")
     abstract override suspend fun clear()
 
+    @Query("Select * from Categories where categoryId in (:ids)")
+    abstract override fun getSelectedItems(ids: List<String>): Flow<List<CategoryDbo>>?
+
+    @Query("Select * from Categories where categoryId=:id")
+    abstract override suspend fun getItem(id: String): CategoryDbo?
 
 }

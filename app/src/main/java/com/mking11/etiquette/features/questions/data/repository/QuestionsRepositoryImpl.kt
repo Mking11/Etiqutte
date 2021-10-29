@@ -25,6 +25,7 @@ class QuestionsRepositoryImpl(
     ) {
 
     override fun getQuestionsRemote(): LiveData<HashMap<String, QuestionsDto>> {
+        questionsRemote.observeValue()
         return questionsRemote.repoHashedLive
     }
 

@@ -15,7 +15,7 @@ abstract class OptionsDao : DaoCommon<OptionsDbo, String> {
     abstract override fun getSelectedItems(ids: List<String>): Flow<List<OptionsDbo>>?
 
     @Query("Select * From Options where questionId=:id")
-    abstract fun getOptionItems(id:String): Flow<List<OptionsDbo>>?
+    abstract fun getOptionItems(id: String): Flow<List<OptionsDbo>>?
 
     @Query("Delete  from Options where id not in (:ids)")
     abstract override suspend fun clearSelected(ids: List<String>)
@@ -23,5 +23,9 @@ abstract class OptionsDao : DaoCommon<OptionsDbo, String> {
     @Query("Delete from Options ")
     abstract override suspend fun clear()
 
+    @Query("Select * from options ")
+    abstract override fun getItems(): Flow<List<OptionsDbo>>?
 
+    @Query("Select * From Options where id=:id")
+    abstract override suspend fun getItem(id: String): OptionsDbo?
 }

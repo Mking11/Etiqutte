@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.mking11.etiquette.BuildConfig
 import com.mking11.etiquette.BuildConfig.BUILD_TYPE
-import com.mking11.etiquette.common.auth_session.data.repository.FirebaseAuthRepository
+import com.mking11.etiquette.common.user_session.data.repository.FirebaseAuthRepository
 import com.mking11.etiquette.common.firebaseutils.FirebaseRealDb
 import dagger.Module
 import dagger.Provides

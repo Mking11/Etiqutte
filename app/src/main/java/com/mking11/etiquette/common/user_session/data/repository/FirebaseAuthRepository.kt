@@ -1,4 +1,4 @@
-package com.mking11.etiquette.common.auth_session.data.repository
+package com.mking11.etiquette.common.user_session.data.repository
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
@@ -6,7 +6,6 @@ import com.google.firebase.crashlytics.internal.common.CommonUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class FirebaseAuthRepository(

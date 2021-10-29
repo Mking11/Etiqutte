@@ -1,4 +1,4 @@
-package com.mking11.etiquette.common.repositories
+package com.mking11.etiquette.common.user_session.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences

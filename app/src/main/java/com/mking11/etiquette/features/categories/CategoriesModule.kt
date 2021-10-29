@@ -16,21 +16,21 @@ import com.mking11.etiquette.features.categories.domain.use_cases.InsertCategori
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object CategoriesModule {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideCategoriesDao(database: EtiquetteDatabase): CategoriesDao {
         return database.categoriesDao
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideCategoryFirebaseSource(
         firebaseRealDb: FirebaseRealDb,
         firebaseCrash: FirebaseCrash
@@ -39,7 +39,7 @@ object CategoriesModule {
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun providesCategoriesRepository(
         categoriesDao: CategoriesDao,
         categoryRemoteSource: FirebaseValueDataSource<CategoryDto>,
@@ -49,7 +49,7 @@ object CategoriesModule {
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun providesCategoriesUseCases(
         categoriesRepository: CategoriesRepository
     ): CategoriesUseCase {
