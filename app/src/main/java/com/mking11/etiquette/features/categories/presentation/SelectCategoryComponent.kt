@@ -15,13 +15,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.mking11.etiquette.features.navigation.Screens
 
 @Composable
 fun SelectCategoryComponent(
     navController: NavController,
     countryId: String,
-    categoriesViewModel: CategoriesViewModel = hiltViewModel(),
-    onClick: (String) -> Unit
+    categoriesViewModel: CategoriesViewModel = hiltViewModel()
 ) {
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -52,7 +52,9 @@ fun SelectCategoryComponent(
             if (categories !=null){
 
                 items(categories){
-                    CategoriesComponent(it.photo,it.name,it.categoryId){
+                    CategoriesComponent(it.photo,it.name,it.categoryId){ categoryId ->
+
+                        navController.navigate(Screens.QUESTIONS + "/${countryId}/${categoryId}")
 
                     }
                 }

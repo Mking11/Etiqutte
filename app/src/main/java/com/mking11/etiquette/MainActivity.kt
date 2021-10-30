@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,6 +19,7 @@ import com.mking11.etiquette.features.categories.presentation.SelectCategoryComp
 import com.mking11.etiquette.features.countries.presentation.SelectCountriesComponent
 import com.mking11.etiquette.features.navigation.Arguments
 import com.mking11.etiquette.features.navigation.Screens
+import com.mking11.etiquette.features.questions.presentations.QuestionParent
 import com.mking11.etiquette.ui.theme.EtiquetteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +40,7 @@ class MainActivity : ComponentActivity() {
         android.Manifest.permission.INTERNET,
     )
 
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermissions(permissions)
@@ -64,9 +67,22 @@ class MainActivity : ComponentActivity() {
                     )){
                         val countryId = it.arguments?.getString(Arguments.COUNTRY_ID)
                         if (countryId !=null) {
-                            SelectCategoryComponent(navController, countryId) {
+                            SelectCategoryComponent(navController = navController, countryId = countryId)
+                        }
+                    }
 
-                            }
+                    composable(Screens.QUESTIONS + "/{${Arguments.COUNTRY_ID}}/{${Arguments.CATEGORY_ID}}", arguments = listOf(
+                        navArgument(Arguments.COUNTRY_ID) {
+                            type = NavType.StringType
+                        }, navArgument(Arguments.CATEGORY_ID){
+                            type = NavType.StringType
+                        }
+                    )){
+                        val countryId = it.arguments?.getString(Arguments.COUNTRY_ID)
+                        val categoryId = it.arguments?.getString(Arguments.CATEGORY_ID)
+
+                        if (categoryId !=null && countryId !=null){
+                            QuestionParent(navController = navController, categoryId = categoryId, countryId = countryId)
                         }
                     }
                 }

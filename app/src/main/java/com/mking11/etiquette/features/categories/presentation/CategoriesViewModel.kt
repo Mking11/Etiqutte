@@ -12,4 +12,23 @@ class CategoriesViewModel @Inject constructor(
 ):ViewModel(){
 
     val categories = categoriesUseCase.getCategoriesDb.invoke()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
