@@ -29,32 +29,40 @@ fun SelectCountriesComponent(
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
-        val (top_constriant, list_constraint) = createRefs()
+        val (top_constraint, list_constraint) = createRefs()
         Text(
             "Select Country",
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Center,
             fontSize = 30.sp,
-            modifier = Modifier.constrainAs(top_constriant) {
+            modifier = Modifier.constrainAs(top_constraint) {
                 start.linkTo(parent.start, 20.dp)
                 end.linkTo(parent.end, 20.dp)
                 top.linkTo(parent.top, 30.dp)
                 width = Dimension.fillToConstraints
             })
 
-        val countries: List<CountriesDbo>? = countriesViewModel.countries?.collectAsState(listOf())?.value
+        val countries: List<CountriesDbo>? =
+            countriesViewModel.countries?.collectAsState(listOf())?.value
 
-        LazyColumn(modifier = Modifier.fillMaxWidth().constrainAs(list_constraint) {
-            start.linkTo(parent.start, 20.dp)
-            end.linkTo(parent.end, 20.dp)
-            top.linkTo(top_constriant.bottom, 20.dp)
-            bottom.linkTo(parent.bottom, 20.dp)
-            width = Dimension.fillToConstraints
-            height = Dimension.fillToConstraints
-        },horizontalAlignment = Alignment.CenterHorizontally) {
+        LazyColumn(modifier = Modifier
+            .fillMaxWidth()
+            .constrainAs(list_constraint) {
+                start.linkTo(parent.start, 20.dp)
+                end.linkTo(parent.end, 20.dp)
+                top.linkTo(top_constraint.bottom, 20.dp)
+                bottom.linkTo(parent.bottom, 20.dp)
+                width = Dimension.fillToConstraints
+                height = Dimension.fillToConstraints
+            }, horizontalAlignment = Alignment.CenterHorizontally) {
             if (countries != null) {
                 items(countries) {
-                    CountriesComponent(it.photo, it.countryName,it.countryId) { countryId ->
+                    CountriesComponent(
+                        it.photo,
+                        it.countryName,
+                        it.countryId,
+                        imageLoader = countriesViewModel.imageLoader
+                    ) { countryId ->
                         navHostController.navigate(Screens.CATEGORY + "/${countryId}")
                     }
                 }

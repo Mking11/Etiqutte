@@ -1,6 +1,7 @@
 package com.mking11.etiquette.features.questions.presentations
 
 import androidx.lifecycle.ViewModel
+import coil.ImageLoader
 import com.mking11.etiquette.features.categories.domain.models.CategoriesUseCase
 import com.mking11.etiquette.features.questions.domain.models.QuestionsUseCases
 import com.mking11.etiquette.features.questions.domain.models.dbo.OptionsDbo
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OptionsViewModel  @Inject constructor(
-    private val questionsUseCases: QuestionsUseCases
+    private val questionsUseCases: QuestionsUseCases,
+    val imageLoader: ImageLoader
 ):ViewModel() {
 
 

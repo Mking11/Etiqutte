@@ -49,10 +49,15 @@ fun SelectCategoryComponent(
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         }) {
-            if (categories !=null){
+            if (categories != null) {
 
-                items(categories){
-                    CategoriesComponent(it.photo,it.name,it.categoryId){ categoryId ->
+                items(categories) {
+                    CategoriesComponent(
+                        it.photo,
+                        it.name,
+                        it.categoryId,
+                        categoriesViewModel.imageLoader
+                    ) { categoryId ->
 
                         navController.navigate(Screens.QUESTIONS + "/${countryId}/${categoryId}")
 

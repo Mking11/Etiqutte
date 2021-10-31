@@ -1,5 +1,7 @@
 package com.mking11.etiquette.features.countries
 
+import android.content.Context
+import coil.ImageLoader
 import com.mking11.etiquette.common.EtiquetteDatabase
 import com.mking11.etiquette.common.firebaseutils.FirebaseCrash
 import com.mking11.etiquette.common.firebaseutils.FirebaseRealDb
@@ -17,6 +19,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
@@ -42,9 +45,17 @@ object CountriesModule {
     fun providesCountriesRepository(
         countriesDao: CountriesDao,
         countriesRemote: FirebaseValueDataSource<CountriesDto>,
+        @ApplicationContext context: Context,
+        imageLoader: ImageLoader,
         firebaseCrash: FirebaseCrash
     ): CountriesRepository {
-        return CountriesRepositoryImpl(countriesDao, countriesRemote, firebaseCrash)
+        return CountriesRepositoryImpl(
+            countriesDao,
+            context,
+            imageLoader,
+            countriesRemote,
+            firebaseCrash
+        )
     }
 
     @Provides
@@ -56,7 +67,7 @@ object CountriesModule {
             closeRemoteRepository = CloseRemoteRepository(countriesRepository),
             getCountriesDb = GetCountriesDb(countriesRepository),
             getCountriesRemote = GetCountriesRemote(countriesRepository),
-            insertCountriesDb = InsertCountriesDb(countriesRepository )
+            insertCountriesDb = InsertCountriesDb(countriesRepository)
         )
     }
 }

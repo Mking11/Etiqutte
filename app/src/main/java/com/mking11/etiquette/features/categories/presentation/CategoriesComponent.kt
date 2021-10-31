@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.ImageLoader
 import coil.compose.rememberImagePainter
 
 @Composable
@@ -20,6 +21,7 @@ fun CategoriesComponent(
     categoryPhoto: String,
     categoryName: String,
     categoryId: String,
+    imageLoader: ImageLoader,
     categoryClick: (String) -> Unit
 ) {
 
@@ -34,7 +36,7 @@ fun CategoriesComponent(
 
             Card {
                 Image(
-                    painter = rememberImagePainter(categoryPhoto),
+                    painter = rememberImagePainter(categoryPhoto,imageLoader = imageLoader),
                     contentDescription = "flag ",
                     modifier = Modifier
                         .fillMaxWidth(0.3f)

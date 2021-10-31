@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface CountriesRepository {
     fun getCountriesRemote(): LiveData<HashMap<String, CountriesDto>>
     fun getCountriesDb(): Flow<List<CountriesDbo>>?
-    fun insertCountriesDb(countries: HashMap<String, CountriesDto>)
+    suspend fun insertCountriesDb(countries: HashMap<String, CountriesDto>)
     fun closeRepository()
 }
