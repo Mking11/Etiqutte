@@ -17,7 +17,7 @@ class QuestionsViewModel @Inject constructor(
 
 
     fun getQuestions(categories: String, countryId: String): Flow<List<QuestionsDbo>>? {
-        return questionsUseCases.getQuestionsDb(countryId, categories)?.map {
+        return questionsUseCases.getQuestionsDb(countryId, categories)?.map { it ->
             it.sortedBy {
                 it.title
             }
