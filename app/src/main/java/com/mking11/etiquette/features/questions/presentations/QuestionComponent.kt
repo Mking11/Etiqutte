@@ -1,6 +1,7 @@
 package com.mking11.etiquette.features.questions.presentations
 
-import androidx.compose.animation.*
+import android.graphics.Bitmap
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
@@ -10,7 +11,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -18,23 +22,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.LocalImageLoader
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.mking11.etiquette.features.questions.domain.models.dbo.OptionsDbo
 
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @Composable
 fun QuestionComponent(
     questionText: String,
     validResponseId: String,
-    quesitonPhoto: String,
+    questionPhoto: Bitmap?,
     questionId: String,
     viewModel: OptionsViewModel = hiltViewModel(),
     revealAnswers: Boolean,
 ) {
 
-    val options = viewModel.getOptions(questionId)?.collectAsState(listOf())?.value
 
-    println("options ${options}")
+    val options = viewModel.getOptions(questionId)?.collectAsState(listOf())
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,11 +73,12 @@ fun QuestionComponent(
                 .height(200.dp), elevation = 4.dp
         ) {
 
+
             Image(
-                painter = rememberImagePainter(quesitonPhoto, imageLoader = viewModel.imageLoader),
+                painter = rememberImagePainter(questionPhoto, viewModel.imageLoader),
                 contentDescription = "question image",
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Inside
+                contentScale = ContentScale.Fit
             )
 
         }
@@ -81,10 +88,10 @@ fun QuestionComponent(
             horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier
         ) {
 
-            if (options != null) {
-                items(options.sortedBy {
-                    it.title
-                }) {
+
+            val _options: List<OptionsDbo>? = options?.value
+            if (_options != null) {
+                items(_options) {
                     OptionsComponent(
                         checked = checked.value == it.id,
                         optionId = it.id,

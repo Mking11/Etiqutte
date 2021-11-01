@@ -1,12 +1,13 @@
 package com.mking11.etiquette.features.countries.presentation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +55,10 @@ fun SelectCountriesComponent(
                 bottom.linkTo(parent.bottom, 20.dp)
                 width = Dimension.fillToConstraints
                 height = Dimension.fillToConstraints
-            }, horizontalAlignment = Alignment.CenterHorizontally) {
+            },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             if (countries != null) {
                 items(countries) {
                     CountriesComponent(
@@ -66,6 +70,11 @@ fun SelectCountriesComponent(
                         navHostController.navigate(Screens.CATEGORY + "/${countryId}")
                     }
                 }
+            }else {
+                item{
+                    CircularProgressIndicator()
+                }
+
             }
 
         }

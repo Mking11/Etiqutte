@@ -47,10 +47,10 @@ fun QuestionParent(
 
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (top_constrinat, bottom_constraint) = createRefs()
+        val (top_constraint, bottom_constraint) = createRefs()
 
         Column(
-            modifier = Modifier.padding(bottom = 50.dp).constrainAs(top_constrinat) {
+            modifier = Modifier.padding(bottom = 50.dp).constrainAs(top_constraint) {
                 top.linkTo(parent.top, 20.dp)
                 bottom.linkTo(parent.bottom, 50.dp)
                 start.linkTo(parent.start, 0.dp)
@@ -63,40 +63,46 @@ fun QuestionParent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Spacer(modifier = Modifier.width(15.dp))
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }, modifier = Modifier.fillMaxWidth(0.2f)) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBackIos,
+                        contentDescription = "go back"
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(50.dp))
+
+                Text(
+                    text = "Question",
+                    textAlign = TextAlign.Start,
+                    fontSize = 30.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
             if (questions?.isEmpty() == true) {
 
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "Sorry No questions yet, will be updated shortly")
                 }
             } else {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 50.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Spacer(modifier = Modifier.width(15.dp))
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }, modifier = Modifier.fillMaxWidth(0.2f)) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBackIos,
-                            contentDescription = "go back"
-                        )
-                    }
-                }
 
-                Text(
-                    text = "Question",
-                    textAlign = TextAlign.Center,
-                    fontSize = 30.sp,
-                    modifier = Modifier.fillMaxWidth()
-                )
+
+
 
 
 
@@ -130,7 +136,7 @@ fun QuestionParent(
                             questionText = question.title,
                             validResponseId = question.validAnswer,
                             revealAnswers = showSolution.value,
-                            questionId = question.id, quesitonPhoto = question.photo ?: ""
+                            questionId = question.id, questionPhoto = question.photo
                         )
                     }
                 }

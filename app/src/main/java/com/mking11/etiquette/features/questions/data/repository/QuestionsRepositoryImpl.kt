@@ -1,8 +1,11 @@
 package com.mking11.etiquette.features.questions.data.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
+import coil.ImageLoader
 import com.mking11.etiquette.common.firebaseutils.FirebaseCrash
 import com.mking11.etiquette.common.utils.dao_utils.DaoRepo
+import com.mking11.etiquette.common.utils.photo_room_utils.convertToBitmap
 import com.mking11.etiquette.common.utils.repo_utils.FirebaseValueDataSource
 import com.mking11.etiquette.features.questions.OptionsRepository
 import com.mking11.etiquette.features.questions.QuestionsRepository
@@ -16,6 +19,8 @@ class QuestionsRepositoryImpl(
     firebaseCrash: FirebaseCrash,
     private val questionsDao: QuestionsDao,
     private val optionRepo: OptionsRepository,
+    private val context: Context,
+    private val imageLoader: ImageLoader,
     private val questionsRemote: FirebaseValueDataSource<QuestionsDto>
 ) : QuestionsRepository,
     DaoRepo<QuestionsDbo, String, QuestionsDao>(
@@ -31,7 +36,8 @@ class QuestionsRepositoryImpl(
 
     override suspend fun insertQuestionsDb(list: List<QuestionsDto>) {
         list.forEach { question ->
-            insertOrUpdate(question.toDb())
+            val bitmap = question.photo?.let { convertToBitmap(context, imageLoader, it) }
+            insertOrUpdate(question.toDb(bitmap))
         }
 
     }

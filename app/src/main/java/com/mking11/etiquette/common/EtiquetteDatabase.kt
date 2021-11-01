@@ -16,7 +16,7 @@ import com.mking11.etiquette.features.questions.domain.models.dbo.QuestionsDbo
 
 @Database(
     entities = [CategoryDbo::class, CountriesDbo::class, QuestionsDbo::class, OptionsDbo::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

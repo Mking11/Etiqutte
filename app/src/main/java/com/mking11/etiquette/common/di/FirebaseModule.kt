@@ -27,18 +27,15 @@ object FirebaseModule {
     fun provideFirebaseDatabase(): FirebaseDatabase {
         var realDb: FirebaseDatabase? = null
         if (realDb == null) {
-            when (BuildConfig.BUILD_TYPE) {
+            realDb = when (BuildConfig.BUILD_TYPE) {
                 "debug" -> {
-                    realDb =
-                        FirebaseDatabase.getInstance()
-                    realDb.setPersistenceEnabled(true)
-//                    realDb?.useEmulator(BuildConfig.IP_ADDRESS, 9000)
+                    FirebaseDatabase.getInstance()
+        //                    realDb.setPersistenceEnabled(true)
                 }
 
                 else -> {
-                    realDb =
-                        FirebaseDatabase.getInstance()
-                    realDb.setPersistenceEnabled(true)
+                    FirebaseDatabase.getInstance()
+        //                    realDb.setPersistenceEnabled(true)
 
                 }
 

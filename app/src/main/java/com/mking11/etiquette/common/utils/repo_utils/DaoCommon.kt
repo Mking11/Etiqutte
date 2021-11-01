@@ -7,7 +7,7 @@ interface DaoCommon<Dto, PrimaryType> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertItem(item: Dto): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.IGNORE)
     fun update(item: Dto)
 
     @Delete

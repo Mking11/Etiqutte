@@ -1,34 +1,25 @@
 package com.mking11.etiquette.features.questions
 
+import android.content.Context
+import coil.ImageLoader
 import com.mking11.etiquette.common.EtiquetteDatabase
 import com.mking11.etiquette.common.firebaseutils.FirebaseCrash
 import com.mking11.etiquette.common.firebaseutils.FirebaseRealDb
 import com.mking11.etiquette.common.utils.repo_utils.FirebaseValueDataSource
-import com.mking11.etiquette.features.categories.CategoriesRepository
-import com.mking11.etiquette.features.categories.data.data_soruce.CategoriesDao
-import com.mking11.etiquette.features.categories.data.data_soruce.CategoriesFirebaseSource
-import com.mking11.etiquette.features.categories.data.repository.CategoriesRepositoryImpl
-import com.mking11.etiquette.features.categories.domain.models.CategoriesUseCase
-import com.mking11.etiquette.features.categories.domain.models.CategoryDto
-import com.mking11.etiquette.features.categories.domain.use_cases.CloseCategoriesRemote
-import com.mking11.etiquette.features.categories.domain.use_cases.GetCategoriesDb
-import com.mking11.etiquette.features.categories.domain.use_cases.GetCategoriesRemote
-import com.mking11.etiquette.features.categories.domain.use_cases.InsertCategoriesDb
 import com.mking11.etiquette.features.questions.data.data_source.dao.OptionsDao
 import com.mking11.etiquette.features.questions.data.data_source.dao.QuestionsDao
 import com.mking11.etiquette.features.questions.data.data_source.firebase_sources.QuestionsFirebaseSource
 import com.mking11.etiquette.features.questions.data.repository.OptionsRepositoryImpl
 import com.mking11.etiquette.features.questions.data.repository.QuestionsRepositoryImpl
 import com.mking11.etiquette.features.questions.domain.models.QuestionsUseCases
-import com.mking11.etiquette.features.questions.domain.models.dto.OptionsDto
 import com.mking11.etiquette.features.questions.domain.models.dto.QuestionsDto
 import com.mking11.etiquette.features.questions.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -71,6 +62,8 @@ object QuestionsModule {
     fun providesQuestionsRepository(
         questionsDao: QuestionsDao,
         optionsRepository: OptionsRepository,
+        @ApplicationContext context: Context,
+        imageLoader: ImageLoader,
         questionsRemoteSource: FirebaseValueDataSource<QuestionsDto>,
         firebaseCrash: FirebaseCrash
     ): QuestionsRepository {
@@ -78,6 +71,7 @@ object QuestionsModule {
             firebaseCrash,
             questionsDao,
             optionsRepository,
+            context, imageLoader,
             questionsRemoteSource
         )
     }

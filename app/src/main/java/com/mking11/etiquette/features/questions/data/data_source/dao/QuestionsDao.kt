@@ -15,7 +15,6 @@ abstract class QuestionsDao : DaoCommon<QuestionsDbo, String> {
     @Query("Select * From  Questions where countryId=:countryId and categoryId=:categoryId ")
     abstract fun getItems(countryId: String, categoryId: String): Flow<List<QuestionsDbo>>?
 
-
     @Query("Delete  from Questions where id not in (:ids)")
     abstract override suspend fun clearSelected(ids: List<String>)
 
