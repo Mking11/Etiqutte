@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                 !it
             }.keys.toList()
 
-            println(unconfirmed)
+
             if (unconfirmed.isNotEmpty()) {
                 this@MainActivity.hasPermissions(this@MainActivity, *permissions)
             }

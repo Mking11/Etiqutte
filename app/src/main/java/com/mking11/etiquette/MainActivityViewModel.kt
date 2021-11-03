@@ -32,7 +32,6 @@ class MainActivityViewModel @Inject constructor(
             firebaseCrash.setErrorToFireBase(e, "getQuestions MainActivityViewModel.kt  33: ")
         }.collect {
 
-            println("observed ${it}")
             it.values.forEach {
                 questionsUseCases.insertOptions(it.id, it.options)
             }

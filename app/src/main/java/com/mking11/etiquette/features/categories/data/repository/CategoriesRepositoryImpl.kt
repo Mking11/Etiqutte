@@ -35,7 +35,6 @@ class CategoriesRepositoryImpl(
     }
 
     override suspend fun insertCategoryDb(categories: HashMap<String, CategoryDto>) {
-        println("insert categories ${categories}")
         categories.values.forEach {
             val drawable: Bitmap? = it.photo?.let { it1 ->
                 convertToBitmap(context,imageLoader,

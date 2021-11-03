@@ -12,10 +12,7 @@ import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +23,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.delay
 
 @ExperimentalAnimationApi
 @Composable
@@ -41,9 +39,30 @@ fun QuestionParent(
         mutableStateOf(0)
     }
 
+    val scope = rememberCoroutineScope()
+
     val questions = viewModel.getQuestions(categoryId, countryId)?.collectAsState(listOf())?.value
+    val size: Int? = questions?.size?.minus(1)
 
     val showSolution = remember { mutableStateOf<Boolean>(false) }
+
+
+
+    LaunchedEffect(showSolution.value) {
+        delay(2000L)
+
+        if (showSolution.value){
+            if (questionNumber < size ?: 0) {
+                setQuestionNumber(questionNumber + 1)
+                showSolution.value = false
+            } else {
+                navController.popBackStack()
+            }
+        }
+
+    }
+
+
 
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -100,10 +119,6 @@ fun QuestionParent(
                     Text(text = "Sorry No questions yet, will be updated shortly")
                 }
             } else {
-
-
-
-
 
 
                 AnimatedContent(
@@ -183,6 +198,8 @@ fun QuestionParent(
                 IconButton(
                     onClick = {
                         showSolution.value = true
+
+
                     },
                     enabled = !showSolution.value,
                     modifier = Modifier.height(80.dp).width(80.dp).background(
@@ -195,10 +212,15 @@ fun QuestionParent(
                 Spacer(modifier = Modifier.width(10.dp))
                 IconButton(
                     onClick = {
-                        if (questionNumber < questions.size - 1) {
-                            setQuestionNumber(questionNumber + 1)
-                            showSolution.value = false
+                        if (size != null) {
+                            if (questionNumber < size) {
+                                setQuestionNumber(questionNumber + 1)
+                                showSolution.value = false
+                            } else {
+                                navController.popBackStack()
+                            }
                         }
+
                     },
                     modifier = Modifier.height(50.dp).width(50.dp).background(
                         color = Color.DarkGray.copy(alpha = 0.2f),
