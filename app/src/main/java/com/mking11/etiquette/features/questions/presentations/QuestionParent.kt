@@ -37,20 +37,21 @@ fun QuestionParent(
     viewModel: QuestionsViewModel = hiltViewModel()
 ) {
 
-    val (questionNumber, setQuestionNumber) = remember {
-        mutableStateOf(0)
-    }
+
 
     val questions = viewModel.getQuestions(categoryId, countryId)?.collectAsState(listOf())?.value
 
     val showSolution = remember { mutableStateOf<Boolean>(false) }
 
-
+    val (questionNumber, setQuestionNumber) = remember {
+        mutableStateOf(0)
+    }
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (top_constrinat, bottom_constraint) = createRefs()
+        val (top_constraint
+                , bottom_constraint) = createRefs()
 
         Column(
-            modifier = Modifier.padding(bottom = 50.dp).constrainAs(top_constrinat) {
+            modifier = Modifier.padding(bottom = 50.dp).constrainAs(top_constraint) {
                 top.linkTo(parent.top, 20.dp)
                 bottom.linkTo(parent.bottom, 50.dp)
                 start.linkTo(parent.start, 0.dp)
@@ -130,7 +131,7 @@ fun QuestionParent(
                             questionText = question.title,
                             validResponseId = question.validAnswer,
                             revealAnswers = showSolution.value,
-                            questionId = question.id, quesitonPhoto = question.photo ?: ""
+                            questionId = question.id, questionPhoto = question.photo ?: ""
                         )
                     }
                 }

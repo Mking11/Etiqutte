@@ -18,15 +18,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.LocalImageLoader
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @Composable
 fun QuestionComponent(
     questionText: String,
     validResponseId: String,
-    quesitonPhoto: String,
+    questionPhoto: String,
     questionId: String,
     viewModel: OptionsViewModel = hiltViewModel(),
     revealAnswers: Boolean,
@@ -34,7 +35,6 @@ fun QuestionComponent(
 
     val options = viewModel.getOptions(questionId)?.collectAsState(listOf())?.value
 
-    println("options ${options}")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +68,7 @@ fun QuestionComponent(
         ) {
 
             Image(
-                painter = rememberImagePainter(quesitonPhoto, imageLoader = viewModel.imageLoader),
+                painter = rememberImagePainter(questionPhoto, imageLoader = viewModel.imageLoader),
                 contentDescription = "question image",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Inside
