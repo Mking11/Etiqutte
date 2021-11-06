@@ -9,5 +9,5 @@ data class CountriesDbo(
     @PrimaryKey
     val countryId: String,
     val countryName: String,
-    val photo: Bitmap
+    val photo: Bitmap?
 )

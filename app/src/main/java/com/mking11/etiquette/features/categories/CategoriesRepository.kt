@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface CategoriesRepository {
     fun getCategoriesRemote(): LiveData<HashMap<String, CategoryDto>>
     fun getCategoryDb(): Flow<List<CategoryDbo>>?
-    fun insertCategoryDb(categories:HashMap<String,CategoryDto>)
+    suspend fun insertCategoryDb(categories: HashMap<String, CategoryDto>)
     fun closeRepository()
 }

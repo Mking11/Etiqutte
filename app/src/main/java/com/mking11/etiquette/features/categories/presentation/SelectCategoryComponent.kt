@@ -1,9 +1,14 @@
 package com.mking11.etiquette.features.categories.presentation
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -27,17 +32,38 @@ fun SelectCategoryComponent(
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
         val (top_constriant, list_constraint) = createRefs()
-        Text(
-            "Select Category",
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-            fontSize = 30.sp,
+
+        Row(
             modifier = Modifier.constrainAs(top_constriant) {
-                start.linkTo(parent.start, 20.dp)
-                end.linkTo(parent.end, 20.dp)
+                linkTo(parent.start, parent.end)
                 top.linkTo(parent.top, 30.dp)
+                end.linkTo(parent.end, 20.dp)
+
                 width = Dimension.fillToConstraints
-            })
+            },
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Spacer(modifier = Modifier.width(10.dp))
+            IconButton(onClick = {
+                navController.popBackStack()
+            }, modifier = Modifier.fillMaxWidth(0.2f)) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBackIos,
+                    contentDescription = "go back"
+                )
+            }
+
+            Spacer(modifier = Modifier.width(20.dp))
+
+            Text(
+                "Select Category",
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Start,
+                fontSize = 30.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
 
         val categories = categoriesViewModel.categories?.collectAsState(listOf())?.value
 
@@ -48,7 +74,7 @@ fun SelectCategoryComponent(
             bottom.linkTo(parent.bottom, 20.dp)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
-        }) {
+        }, verticalArrangement = Arrangement.Center) {
             if (categories != null) {
 
                 items(categories) {
@@ -62,6 +88,11 @@ fun SelectCategoryComponent(
                         navController.navigate(Screens.QUESTIONS + "/${countryId}/${categoryId}")
 
                     }
+                }
+
+            } else {
+                item {
+                    CircularProgressIndicator()
                 }
 
             }

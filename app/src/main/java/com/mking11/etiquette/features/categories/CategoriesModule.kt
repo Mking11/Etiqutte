@@ -1,5 +1,7 @@
 package com.mking11.etiquette.features.categories
 
+import android.content.Context
+import coil.ImageLoader
 import com.mking11.etiquette.common.EtiquetteDatabase
 import com.mking11.etiquette.common.firebaseutils.FirebaseCrash
 import com.mking11.etiquette.common.firebaseutils.FirebaseRealDb
@@ -17,6 +19,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
@@ -43,9 +46,17 @@ object CategoriesModule {
     fun providesCategoriesRepository(
         categoriesDao: CategoriesDao,
         categoryRemoteSource: FirebaseValueDataSource<CategoryDto>,
+        @ApplicationContext context: Context,
+        imageLoader: ImageLoader,
         firebaseCrash: FirebaseCrash
     ): CategoriesRepository {
-        return CategoriesRepositoryImpl(categoryRemoteSource, categoriesDao, firebaseCrash)
+        return CategoriesRepositoryImpl(
+            categoryRemoteSource,
+            categoriesDao,
+            context,
+            imageLoader,
+            firebaseCrash
+        )
     }
 
     @Provides

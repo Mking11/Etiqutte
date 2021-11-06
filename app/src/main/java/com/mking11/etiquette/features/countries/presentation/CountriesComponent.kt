@@ -19,7 +19,7 @@ import coil.compose.rememberImagePainter
 
 @Composable
 fun CountriesComponent(
-    countryPhoto: Bitmap,
+    countryPhoto: Bitmap?,
     countryName: String,
     countryId:String,
     imageLoader: ImageLoader,
@@ -41,7 +41,8 @@ fun CountriesComponent(
                     contentDescription = "flag ",
                     modifier = Modifier
                         .fillMaxWidth(0.3f)
-                        .height(100.dp), contentScale = ContentScale.Fit
+                        .height(100.dp),
+                    contentScale = ContentScale.FillBounds
                 )
             }
 

@@ -14,20 +14,17 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @ExperimentalAnimationApi
 @Composable
 fun OptionsComponent(
     checked: Boolean,
-    optionId:String,
+    optionId: String,
     isValidAnswer: Boolean,
     revealResult: Boolean,
     value: String,
@@ -47,16 +44,6 @@ fun OptionsComponent(
             verticalArrangement = Arrangement.Center
         ) {
 
-            AnimatedVisibility(visible = revealResult) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End,verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = if (isValidAnswer) Icons.Default.Done else Icons.Default.Clear,
-                        contentDescription = "Result",
-                        tint = if (isValidAnswer) Color.Green else Color.Red
-                    )
-                    Spacer(modifier = Modifier.width(20.dp))
-                }
-            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -74,11 +61,27 @@ fun OptionsComponent(
 
                 Text(
                     text = value,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(0.7f),
                     fontSize = 20.sp,
                     textAlign = TextAlign.Start,
                     overflow = TextOverflow.Ellipsis
                 )
+
+                AnimatedVisibility(visible = revealResult) {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = if (isValidAnswer) Icons.Default.Done else Icons.Default.Clear,
+                            contentDescription = "Result",
+                            tint = if (isValidAnswer) Color.Green else Color.Red
+                        )
+                        Spacer(modifier = Modifier.width(20.dp))
+                    }
+                }
+
             }
         }
 

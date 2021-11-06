@@ -36,10 +36,12 @@ class CountriesRepositoryImpl(
 
     override suspend fun insertCountriesDb(countries: HashMap<String, CountriesDto>) {
         countries.values.forEach {
-            val convertToBitmap = convertToBitmap(context, imageLoader, it.photo)
-            if (convertToBitmap != null) {
-                insertOrUpdate(it.toDb(convertToBitmap))
+            val convertToBitmap = it.photo?.let { it1 ->
+                convertToBitmap(context, imageLoader,
+                    it1
+                )
             }
+                insertOrUpdate(it.toDb(convertToBitmap))
         }
     }
 

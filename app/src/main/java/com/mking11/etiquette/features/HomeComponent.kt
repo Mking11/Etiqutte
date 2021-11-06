@@ -36,7 +36,7 @@ fun HomeComponent(navController: NavHostController) {
             contentDescription = "home image",
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.6f),contentScale = ContentScale.Fit
+                .fillMaxHeight(0.5f),contentScale = ContentScale.Fit
         )
 
 

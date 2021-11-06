@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import coil.ImageLoader
 import coil.request.ImageRequest
+import coil.request.ImageResult
 import coil.request.SuccessResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,9 +20,21 @@ suspend fun invoke(context: Context, imageLoader: ImageLoader, photoURl: String)
     }
 
 suspend fun convertToBitmap(context: Context, imageLoader: ImageLoader, photoURl: String): Bitmap? {
-    val request = ImageRequest.Builder(context).data(photoURl).build()
 
-    val result = (imageLoader.execute(request) as SuccessResult).drawable
-    return ((result as BitmapDrawable).bitmap)
+
+    return try {
+        val request = ImageRequest.Builder(context).data(photoURl).build()
+        val result: ImageResult = imageLoader.execute(request)
+
+        if (result.drawable == null) {
+            null
+        } else {
+            ((result.drawable as BitmapDrawable).bitmap)
+        }
+
+    } catch (e: NullPointerException) {
+        null
+    }
+
 
 }

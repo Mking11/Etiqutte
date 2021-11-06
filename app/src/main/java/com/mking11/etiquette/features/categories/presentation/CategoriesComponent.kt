@@ -1,5 +1,6 @@
 package com.mking11.etiquette.features.categories.presentation
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,7 +19,7 @@ import coil.compose.rememberImagePainter
 
 @Composable
 fun CategoriesComponent(
-    categoryPhoto: String,
+    categoryPhoto: Bitmap?,
     categoryName: String,
     categoryId: String,
     imageLoader: ImageLoader,

@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkPermissions(permissions)
+//        checkPermissions(permissions)
         setContent {
 
             EtiquetteTheme {
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                 !it
             }.keys.toList()
 
-            println(unconfirmed)
+
             if (unconfirmed.isNotEmpty()) {
                 this@MainActivity.hasPermissions(this@MainActivity, *permissions)
             }

@@ -1,5 +1,6 @@
 package com.mking11.etiquette.features.questions.domain.models.dto
 
+import android.graphics.Bitmap
 import com.mking11.etiquette.features.questions.domain.models.dbo.QuestionsDbo
 
 data class QuestionsDto(
@@ -11,13 +12,13 @@ data class QuestionsDto(
     val countryId: String = "",
     val options: HashMap<String, OptionsDto> = hashMapOf()
 ) {
-    fun toDb(): QuestionsDbo {
+    fun toDb(bitmap: Bitmap?): QuestionsDbo {
         return QuestionsDbo(
             id,
             categoryId,
             title,
             validAnswer,
-            photo,
+            bitmap,
             countryId,
             options.toString()
         )
