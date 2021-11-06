@@ -23,8 +23,10 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
 import kotlinx.coroutines.delay
 
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @Composable
 fun QuestionParent(
@@ -39,12 +41,11 @@ fun QuestionParent(
         mutableStateOf(0)
     }
 
-    val scope = rememberCoroutineScope()
 
     val questions = viewModel.getQuestions(categoryId, countryId)?.collectAsState(listOf())?.value
     val size: Int? = questions?.size?.minus(1)
 
-    val showSolution = remember { mutableStateOf<Boolean>(false) }
+    val showSolution = remember { mutableStateOf(false) }
 
 
 
@@ -226,7 +227,7 @@ fun QuestionParent(
                         color = Color.DarkGray.copy(alpha = 0.2f),
                         shape = RoundedCornerShape(4.dp)
                     ),
-                    enabled = questionNumber < questions?.size ?: 0
+                    enabled = questionNumber < questions.size
                 ) {
                     Icon(Icons.Default.SkipNext, contentDescription = "Back ward")
 
